@@ -48,8 +48,13 @@
                 @endif
 
                 <x-button class="ml-3">
-                    {{ __('Log in') }}
+                    ログイン
                 </x-button>
+                <x-button class="ml-3" type="submit" name="back">
+                    戻る
+                </x-button>
+                <a class="ml-3" href="{{ route('register') }}" role="button" method="POST">登録</a>
+
             </div>
         </form>
     </x-auth-card>
