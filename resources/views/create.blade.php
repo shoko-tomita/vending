@@ -1,19 +1,13 @@
-<!-- <link rel="stylesheet" href="{{ asset("/css/style.css") }}"> -->
-<link rel="stylesheet" href="../../public/css/style.css">
+<link rel="stylesheet" href="{{ asset("/css/style.css") }}">
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col col-md-offset-3 col-md-6">
             <nav class="panel panel-default">
             <div class="panel-heading">商品情報登録</div>
-                <div class="text-right">
-                <button type="submit" class="btn btn-primary">投稿</button>
-                </div>
-        </nav>
-
-        </div>
-    </div>
-    <div class="panel-body">
+               
+                <div class="panel-body">
             @if($errors->any())
                 <div class="alert alert-danger">
                 @foreach($errors->all() as $message)
@@ -35,3 +29,11 @@
                 <label for="title">商品画像</label>
                 <input type="text" class="form-control" name="text" id="text" value="{{ old('text') }}" />
                 </div>
+                <div class="text-right">
+                <button type="button" onClick="history.back()">戻る</button>
+                <button type="submit" class="btn btn-primary">登録</button>
+                </div>
+        </nav>
+
+        </div>
+    </div>
