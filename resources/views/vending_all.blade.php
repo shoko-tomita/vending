@@ -34,17 +34,16 @@
 
         <main>
 
-            @foreach ($products as $product)
-            <div>{{ $product->id}}</div>
-            <div>{{ $product->product_name }}</div>
-            <div>{{ $product->price}}</div>
-            <div>{{ $product->stack}}</div>
-            <img src=" {{asset('/image/'.$product->img_path)}}">
-            <div>{{ $product->company}}</div>
+                    @foreach ($products as $product)
+                    <div>{{ $product->id}}</div>
+                    <div>{{ $product->product_name }}</div>
+                    <div>{{ $product->price}}</div>
+                    <div>{{ $product->stack}}</div>
+                    <img src=" {{asset('/image/'.$product->img_path)}}">
+                    <div>{{ $product->company}}</div>
 
-            <a href="{{ route('disp',['id' => $product->id]) }}" class="btn btn-primary">商品情報詳細</a>
-            
-            @endforeach
+                    <a href="{{ route('disp',['id' => $product->id]) }}" class="btn btn-primary">商品情報詳細</a>
+                    @endforeach
 
                 <!-- {{-- <a  href="#" id="logout">ログアウト</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

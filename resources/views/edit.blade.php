@@ -1,6 +1,6 @@
 
-    <!-- <link rel="stylesheet" href="{{ asset("/css/style.css") }}"> -->
-    <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" href="{{ asset("/css/style.css") }}">
+
     @section('content')
     <div class="container">
         <div class="row">
@@ -15,19 +15,19 @@
                     @endforeach
                 </div>
                 @endif
-                <form action="{{ route('threads.edit') }}" method="POST">
+                <form action="{{ route('update'),['id' => $product->id]) }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="title">商品名</label>
-                    <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" />
+                    <input type="text" class="form-control" name="product" id="title" value="{{ old('product_name') }}" />
                     <label for="title">値段</label>
-                    <input type="text" class="form-control" name="text" id="text" value="{{ old('text') }}" />
+                    <input type="text" class="form-control" name="price" id="text" value="{{ old('price') }}" />
                     <label for="title">在庫</label>
-                    <input type="text" class="form-control" name="text" id="text" value="{{ old('text') }}" />
+                    <input type="text" class="form-control" name="stack" id="text" value="{{ old('stack') }}" />
                     <label for="title">コメント</label>
-                    <input type="position" class="form-control" name="position" id="position" value="{{ old('position') }}" />
+                    <input type="position" class="form-control" name="comment" id="position" value="{{ old('comment') }}" />
                     <label for="title">商品画像</label>
-                    <input type="text" class="form-control" name="text" id="text" value="{{ old('text') }}" />
+                    <input type="text" class="form-control" name="img" id="text" value="{{ old('img_path') }}" />
                 </div>
                 <div class="text-right">
                     <button type="submit" class="btn btn-primary">編集</button>

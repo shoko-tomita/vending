@@ -2,7 +2,6 @@
 
         use Illuminate\Support\Facades\Route;
         use App\Http\Controllers\auth\AuthController;
-        use App\Http\Controllers\VendingControlp;
         use App\Http\Controllers\ProductController;
 
         /*
@@ -34,7 +33,12 @@
             // Route::post('/create', 'ThreadController@create');
 
             // 商品詳細
-            Route::get('/disp',  [ProductController::class, 'showDisp'])->name('disp');
+            Route::get('/disp/{id}',  [ProductController::class, 'showDisp'])->name('disp');
+
+            // 商品情報編集のルーティング
+            Route::get('/edit/{id}', [ProductController::class, 'showEdit'])->name('edit');
+            // 更新処理
+            Route::post('/edit/{id}', [ProductController::class, 'update'])->name('update');
         });
 
         // 詳細ページ
@@ -49,6 +53,5 @@
         // 商品情報作成のルーティング
         // Route::get('/create', 'ThreadController@showCreateForm')->name('threads.create');
         // Route::post('/create', 'ThreadController@create');
-
 
         require __DIR__ . '/auth.php';

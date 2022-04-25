@@ -1,5 +1,5 @@
-<!-- <link rel="stylesheet" href="{{ asset("/css/style.css") }}"> -->
-<link rel="stylesheet" href="../../public/css/style.css">
+<link rel="stylesheet" href="{{ asset("/css/style.css") }}">
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -14,24 +14,24 @@
                     @endforeach
                 </div>
                 @endif
-
+                <form action="" method="POST">
                 @csrf
 
                 <div class="card">
                     <div class="card-body">
-                        <!-- 商品名 -->
-                        <h5 class="card-title"> {{ $thread->title }}</h5>
-                        <!-- 値段 -->
-                        <p class="card-text">{{ $thread->thread_detail }}</p>
-                        <!-- 在庫 -->
-                        <p class="card-text">{{ $thread->thread_detail }}</p>
-                        <!-- コメント -->
+                        <p class="card-text">{{ $product->id}}</p>
+                        <h5 class="card-title">{{ $product->product_name }}</h5>
+                        <p class="card-text">{{ $product->price}}</p>
+                        <p class="card-text">{{ $product->stack}}</p>
                         <input type="position" class="form-control" name="position" id="position" value="{{ old('position') }}" />
-                        <!-- 画像 -->
-                        <img class="card-text">{{ $thread->thread_detail }}
+                        <img src=" {{asset('/image/'.$product->img_path)}}">
                         </div>
                         </div>
                         </div>
                 <br>
-                <a href="{{ route('vending_all') }}" class="btn btn-primary">戻る</a>
-                <a href="{{ route('edit') }}" class="btn btn-primary">編集</a>
+
+                <a class="btn btn-primary" href="#" onClick="history.back()">戻る</a>
+                <a href="{{ route('edit',['id' => $product->id]) }}" class="btn btn-primary">編集</a>
+                </form>
+                {{--<button type="button" class="btn btn-primary" onClick="history.back()">戻る</button>
+                <button type="submit" class="btn btn-primary">編集</button>--}}

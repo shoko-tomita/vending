@@ -30,7 +30,7 @@
                 <input type="text" class="form-control" name="text" id="text" value="{{ old('text') }}" />
                 </div>
                 <div class="text-right">
-                <button type="button" onClick="history.back()">戻る</button>
+                <button type="button" class="btn btn-primary" onClick="history.back()">戻る</button>
                 <button type="submit" class="btn btn-primary">登録</button>
                 </div>
         </nav>
