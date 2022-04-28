@@ -25,7 +25,7 @@
                         </select>
                         <div class="form-group">
                             <label for="title">商品名</label>
-                            <input type="text" class="form-control" name="product" id="title" value="{{ $product->product_name }}" />
+                            <input type="text" class="form-control" name="product_name" id="title" value="{{ $product->product_name }}" />
                             <label for="title">値段</label>
                             <input type="number" class="form-control" name="price" id="text" value="{{ $product->price }}" />
                             <label for="title">在庫</label>

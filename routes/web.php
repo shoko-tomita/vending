@@ -43,7 +43,7 @@
             // 商品情報編集のルーティング
             Route::get('/edit/{id}', [ProductController::class, 'showEdit'])->name('edit');
             // 更新処理
-            Route::post('/edit/update', [ProductController::class, 'update'])->name('update');
+            Route::post('/edit/update/{id}', [ProductController::class, 'update'])->name('update');
         });
 
 

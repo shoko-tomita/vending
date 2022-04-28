@@ -13,7 +13,11 @@ class ProductController extends Controller
     public function showCreate()
     {
         \Log::info("showcreate");
-        return view('create');
+
+        $companys = Company::all();
+        
+        
+        return view('create',['companys'=>$companys]);
     }
 
     // スレッド作成された時のバリデーションDBに値を保存、リダイレクト
@@ -91,23 +95,12 @@ class ProductController extends Controller
     public function update(int $id, UpdateFormRequest $request)
     {
 
-        // $inputs = $request->all();
-        // dd($inputs);
-        // \DB::beginTransaction();
-        // try{
-        //     $product = Product::find($inputs['id']);
-        //     \DB::commit();
-        // }catch(\Throwable $e) {
-        //     \DB::rollback();
-        //     abort(500);
-        // }
-
         $product = Product::findOrFail($id)-> first();
         $product->product_name = $request->product_name;
         $product->price = $request->price;
         $product->stack = $request->stack;
         $product->comment = $request->comment;
-        $product->img_path = $request->img_path;
+        // $product->img_path = $request->img_path;
         $product->save();
         return redirect()->route('disp', ['id' => $id,]);
     }
