@@ -22,6 +22,7 @@ class ProductsTablesSeeder extends Seeder
             'product_name' => "テスト",
             'price' => "100",
             'stack' => "10",
+            'comment' => "自動販売機管理システム",
             'img_path' => "fanta.jpeg",
 
         ]);
