@@ -34,10 +34,11 @@
         <img src=" {{asset('/image/'.$product->img_path)}}">
 
         <a href="{{ route('disp',['id' => $product->id]) }}" class="btn btn-primary">商品情報詳細</a>
-        <form action="{{url('vennding_all/'.$product->id)}}" method="POST">
+        {{-- <form action="{{url('vennding_all/'.$product->id)}}" method="POST"> --}}
+        <form action="{{route ('delete',$product->id)}}" method="POST">
             @csrf
-            @method('DELETE')
             <button type="submit" class="btn btn-primary">削除</button>
+
         </form>
         @endforeach
 

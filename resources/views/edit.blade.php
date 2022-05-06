@@ -17,11 +17,10 @@
                     <form action="{{ route('update' , [ 'id'=> $product->id] ) }}" method="POST">
                         @csrf
                         <label for="title">会社名</label>
-                        <select class="form-select" aria-label="Default select" value="company_id">
-                            <option selected=""></option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select" aria-label="Default select" name="company_id">
+                            @foreach($companys as $c)
+                            <option value="{{$c->id}}">{{$c->company_name}}</option>
+                            @endforeach
                         </select>
                         <div class="form-group">
                             <label for="title">商品名</label>

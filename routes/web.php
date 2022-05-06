@@ -27,10 +27,11 @@
             // 一覧画面
             Route::get('vending_all', [ProductController::class, 'show'])->name('vending_all');
             // 削除機能
-            Route::delete('/vending_all/{id}', function () {
-                $id->delete();
-                return redirect('vending_all');
-            });
+            // Route::delete('/vending_all/{id}', [ProductController::class, 'delete'])->name('delete');
+
+            Route::post('/vending_all/{id}', [ProductController::class, 'destroy'])->name('delete');
+
+            // Route::delete('/vending_all/{product}', [ProductController::class, 'destroy']);
 
 
             // 商品登録

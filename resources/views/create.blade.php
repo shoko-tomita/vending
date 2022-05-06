@@ -17,7 +17,7 @@
                     <form action="{{ route('newcreate') }}" method="POST">
                         @csrf
                         <label for="title">会社名</label>
-                        <select class="form-select" aria-label="Default select" value="company_id">
+                        <select class="form-select" aria-label="Default select" name="company_id">
                             @foreach($companys as $c)
                             <option value="{{$c->id}}">{{$c->company_name}}</option>
                             @endforeach

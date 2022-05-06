@@ -15,8 +15,8 @@ class ProductController extends Controller
         \Log::info("showcreate");
 
         $companys = Company::all();
-        
-        
+
+
         return view('create',['companys'=>$companys]);
     }
 
@@ -38,7 +38,7 @@ class ProductController extends Controller
         // dd($request);
         // DBインサート
         $user = new Product();
-        $user->company_id = Auth::id();
+        $user->company_id = $request->input('company_id');
         $user->product_name = $request->input('product_name');
         $user->price = $request->input('price');
         $user->stack = $request->input('stack');
@@ -88,43 +88,61 @@ class ProductController extends Controller
     {
         \Log::info("showEdit");
         $product = Product::findOrFail($id);
-        return view('edit', ['product' => $product,]);
+
+        $companys = Company::all();
+        return view('edit', ['product' => $product,'companys'=>$companys,]);
         // return view('edit',compact('product'));
     }
 
     public function update(int $id, UpdateFormRequest $request)
     {
 
-        $product = Product::findOrFail($id)-> first();
+        $product = Product::findOrFail($id);
+        $product->company_id = $request->company_id;
         $product->product_name = $request->product_name;
         $product->price = $request->price;
         $product->stack = $request->stack;
         $product->comment = $request->comment;
         // $product->img_path = $request->img_path;
         $product->save();
+
         return redirect()->route('disp', ['id' => $id,]);
     }
-    // public function update(int $id, UpdateFormRequest $request)
-    // {
-    //     $product = Product::findOrFail($id)-> first();
-    //     $product->company_name = $request->company_name;
-    //     $product->product_name = $request->product_name;
-    //     $product->price = $request->price;
-    //     $product->stack = $request->stack;
-    //     $product->comment = $request->comment;
-    //     $product->img_path = $request->img_path;
 
-    //     $product->save();
-    //     return redirect()->route('disp',['id' => $id ,]);
-    //     // return redirect('mypage_office/office');
-    // }
-
+    // 削除対象レコードを検索
     // public function delete($id){
 
-    //     // 削除対象レコードを検索
-    //     $user = \App\User::findOrFail($id);
-
+    //     \Log::info("delete");
+    //     $user = Product::findOrFail($id);
     //     // 削除
     //     $user->delete();
+
+    //     return redirect('vending_all');
     //     }
+
+    public function destroy($id){
+        \Log::info("destroy");
+        $item = Product::findOrFail($id);
+        $item->delete();
+        return redirect('/');
+    }
+
+    // public function destroy(Request $request, $id, Product $product){
+    //     $product = Product::find($id);
+    //     $product -> delete();
+    //     return redirect("/vending_all");
+    // }
+
+        // // JOIN productsとcompanies
+
+            // public function index()
+            // {
+            //     $this->products = new Product();
+
+            //     $results = $this->products->getCompanyNameById();
+
+            //     return view('create', compact(
+            //         'results',
+            //     ));
+            // }
 }
