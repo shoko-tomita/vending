@@ -10,6 +10,20 @@
         <h3>商品一覧情報</h3>
     </header>
 
+<form action="{{route('search')}}">
+    <select class="form-select" aria-label="Default select" name="company_id">
+        {{--@foreach($companys as $c)
+            <option value="{{$c->id}}">{{$c->company_name}}</option>
+        @endforeach--}}
+    <input type="text" name="word">
+    <input type="submit" class="btn btn-primary" value="検索">
+</form>
+
+{{--<form action="{{route('article.list')}}">--}}
+<button type="submit" class="btn btn-primary" name="sort" value="@if (!isset($sort) || $sort !== '1') 1 @elseif ($sort === '1') 2 @endif">価格順</button>
+<button type="submit" class="btn btn-primary" name="sort" value="@if (!isset($sort) || $sort !== '3') 3 @elseif ($sort === '3') 4 @endif">在庫順</button>
+</form>
+<br><br>
     <a href="{{ route('create') }}" class="btn btn-primary">商品情報登録</a>
 
     <div class="container">
@@ -19,7 +33,6 @@
                 {{ session('login_success')}}
             </div>
             @endif
-
         </div>
     </div>
 

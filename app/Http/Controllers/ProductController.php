@@ -110,39 +110,34 @@ class ProductController extends Controller
     }
 
     // 削除対象レコードを検索
-    // public function delete($id){
-
-    //     \Log::info("delete");
-    //     $user = Product::findOrFail($id);
-    //     // 削除
-    //     $user->delete();
-
-    //     return redirect('vending_all');
-    //     }
-
-    public function destroy($id){
+    public function destroy($id)
+    {
         \Log::info("destroy");
         $item = Product::findOrFail($id);
         $item->delete();
         return redirect('/');
     }
 
-    // public function destroy(Request $request, $id, Product $product){
-    //     $product = Product::find($id);
-    //     $product -> delete();
-    //     return redirect("/vending_all");
-    // }
+    // 検索機能
+    public function search(Request $request)
+    {
+        \Log::info("search");
+        $companys = Company::all();
 
-        // // JOIN productsとcompanies
+        // dd($companys);
+        $word = $request->get('word');
+        if ($word !== null) {
+            $escape_word = addcslashes($word, '\\_%');
+            $products = Product::where('product_name', '%' . $escape_word . '%')->get();
+        } else {
+            $products = Product::all();
+        }
+        return view(
+            'vending_all',
+            [
+                'products' => $products
+            ]
+        );
+    }
 
-            // public function index()
-            // {
-            //     $this->products = new Product();
-
-            //     $results = $this->products->getCompanyNameById();
-
-            //     return view('create', compact(
-            //         'results',
-            //     ));
-            // }
 }

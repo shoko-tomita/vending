@@ -33,7 +33,6 @@
 
             // Route::delete('/vending_all/{product}', [ProductController::class, 'destroy']);
 
-
             // 商品登録
             Route::get('/create',  [ProductController::class, 'showCreate'])->name('create');
             Route::post('/create', [ProductController::class, 'newCreate'])->name('newcreate');
@@ -45,6 +44,8 @@
             Route::get('/edit/{id}', [ProductController::class, 'showEdit'])->name('edit');
             // 更新処理
             Route::post('/edit/update/{id}', [ProductController::class, 'update'])->name('update');
+            // 検索機能
+            Route::get('/vending_all', [ProductController::class, 'search'])->name('search');
         });
 
 

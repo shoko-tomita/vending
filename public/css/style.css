@@ -4,3 +4,7 @@
 .my-list {
     list-style-type: none;
 }
+
+body{
+    margin: 30px;
+}
