@@ -3,8 +3,16 @@
 
 .my-list {
     list-style-type: none;
+    text-align: right;
 }
 
 body{
     margin: 30px;
+}
+
+h3{
+    text-align: center;
+}
+.panel-heading{
+    text-align: left;
 }

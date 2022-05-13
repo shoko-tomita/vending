@@ -19,11 +19,11 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-text">{{ $product->id}}</p>
-                                <h5 class="card-title">{{ $product->product_name }}</h5>
-                                <p class="card-text">{{ $product->price}}</p>
-                                <p class="card-text">{{ $product->stack}}</p>
-                                <p class="card-text">{{ $product->comment}}</p>
+                                <p class="card-text">id:{{ $product->id}}</p>
+                                <p class="card-title">商品名:{{ $product->product_name }}</p>
+                                <p class="card-text">価格:{{ $product->price}}</p>
+                                <p class="card-text">在庫:{{ $product->stack}}</p>
+                                <p class="card-text">コメント:{{ $product->comment}}</p>
                                 <img src=" {{asset('/image/'.$product->img_path)}}">
                             </div>
                         </div>

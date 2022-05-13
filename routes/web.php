@@ -27,11 +27,7 @@
             // 一覧画面
             Route::get('vending_all', [ProductController::class, 'show'])->name('vending_all');
             // 削除機能
-            // Route::delete('/vending_all/{id}', [ProductController::class, 'delete'])->name('delete');
-
             Route::post('/vending_all/{id}', [ProductController::class, 'destroy'])->name('delete');
-
-            // Route::delete('/vending_all/{product}', [ProductController::class, 'destroy']);
 
             // 商品登録
             Route::get('/create',  [ProductController::class, 'showCreate'])->name('create');
@@ -45,8 +41,9 @@
             // 更新処理
             Route::post('/edit/update/{id}', [ProductController::class, 'update'])->name('update');
             // 検索機能
-            Route::get('/vending_all', [ProductController::class, 'search'])->name('search');
+            Route::get('/search', [ProductController::class, 'search'])->name('search');
+            // 検索機能
+            Route::post('/list', [ProductController::class, 'list'])->name('list');
         });
-
 
         require __DIR__ . '/auth.php';
