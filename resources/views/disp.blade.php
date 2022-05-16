@@ -19,7 +19,7 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <p class="card-text">id:{{ $product->id}}</p>
+                                <p class="card-text">ID:{{ $product->id}}</p>
                                 <p class="card-title">商品名:{{ $product->product_name }}</p>
                                 <p class="card-text">価格:{{ $product->price}}</p>
                                 <p class="card-text">在庫:{{ $product->stack}}</p>
@@ -27,9 +27,9 @@
                                 <img src=" {{asset('/image/'.$product->img_path)}}">
                             </div>
                         </div>
-                </div>
                 <br>
 
                 <a href="{{ route('edit',['id' => $product->id]) }}" class="btn btn-primary">編集</a>
                 <a class="btn btn-primary" href="#" onClick="history.back()">戻る</a>
                 </form>
+                </div>

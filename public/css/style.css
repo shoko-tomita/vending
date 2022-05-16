@@ -13,6 +13,11 @@ body{
 h3{
     text-align: center;
 }
+
 .panel-heading{
     text-align: left;
+}
+
+img{
+    margin: 10px;
 }

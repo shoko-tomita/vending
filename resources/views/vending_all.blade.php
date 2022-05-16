@@ -39,7 +39,7 @@
     </form>--}}
 
     <form action="{{route('list')}}" method="POST" name="sort">
-    <button type="submit" class="btn btn-primary" name="sort" value="1">id順</button>
+    <button type="submit" class="btn btn-primary" name="sort" value="1">ID順</button>
     <button type="submit" class="btn btn-primary" name="sort" value="2">名前順</button>
     <button type="submit" class="btn btn-primary" name="sort" value="3">価格順</button>
     <button type="submit" class="btn btn-primary" name="sort" value="4">在庫順</button>
@@ -67,7 +67,7 @@
                 <div class="col col-md-offset-3 col-md-6">
                     <div class="panel panel-default">
                     <div class="panel-heading">
-                        <label for="">id:{{ $product->id}}</label>
+                        <label for="">ID:{{ $product->id}}</label>
                     </div>
                         <div class="panel-body">
                             <div>商品名:{{ $product->product_name }}</div>
