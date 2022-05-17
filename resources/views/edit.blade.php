@@ -19,7 +19,7 @@
                         <label for="title">会社名</label>
                         <select class="form-select" aria-label="Default select" name="company_id">
                             @foreach($companys as $c)
-                            <option value="{{$c->id}}">{{$c->company_name}}</option>
+                            <option value="{{$c->id}}"@if($c->id == $company_id) selected @endif>{{$c->company_name}}</option>
                             @endforeach
                         </select>
                         <div class="form-group">
@@ -41,7 +41,6 @@
                             <button type="submit" class="btn btn-primary">更新</button>
 
                             <a class="btn btn-primary" href="#" onClick="history.back()">戻る</a>
-                            {{--<a href="{{ route('vending_all') }}" class="btn btn-primary">編集</a>--}}
                         </div>
                     </form>
                 </div>

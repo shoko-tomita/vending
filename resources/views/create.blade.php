@@ -14,7 +14,7 @@
                         @endforeach
                     </div>
                     @endif
-                    <form action="{{ route('newcreate') }}" method="POST">
+                    <form action="{{ route('newcreate') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <label for="title">会社名</label>
                         <select class="form-select" aria-label="Default select" name="company_id">
@@ -35,7 +35,7 @@
                             </div>
 
                             <label for="title">商品画像</label>
-                            <input type="file" class="form-control" name="img_path" id="text" value="{{ old('text') }}" />
+                            <input type="file" class="form-control" name="img_path" id="file" value="" />
                         </div>
                         <div class="text-right">
                             <button type="submit" class="btn btn-primary">登録</button>

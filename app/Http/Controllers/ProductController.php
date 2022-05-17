@@ -44,6 +44,12 @@ class ProductController extends Controller
         $user->stack = $request->input('stack');
         $user->comment = $request->input('comment');
         $user->img_path = $request->input('img_path');
+        // if(request('img_path')){
+        //     $original = request()->file('img_path')->getClientOriginalName();
+        //     $name = date('Ymd_His').'_'.$original;
+        //     $file = request()->file('img_path')->move('storage/images',$name);
+        //     $post->img_path=$name;
+        // }
 
         // $user = Product::find($request->id);
         // $user->product_name = $request->product_name;
@@ -63,6 +69,7 @@ class ProductController extends Controller
     public function show()
     {
         $products = Product::all();
+        $companys = Company::all();
 
         foreach ($products as $product) {
             $company_id = $product->company_id;
@@ -70,7 +77,7 @@ class ProductController extends Controller
             $product['company_name'] = $company_name;
         }
         //dd($products);
-        return view('vending_all', ['products' => $products]);
+        return view('vending_all', ['products' => $products,'companys' => $companys,]);
     }
 
     /**
@@ -84,13 +91,16 @@ class ProductController extends Controller
         return view('disp', ['product' => Product::findOrFail($id)]);
     }
 
+    // 編集機能
     public function showEdit(int $id)
     {
         \Log::info("showEdit");
         $product = Product::findOrFail($id);
-
         $companys = Company::all();
-        return view('edit', ['product' => $product,'companys'=>$companys,]);
+        // $company_id = Product::findOrFail($id);
+        $company_id =  $product->company_id;
+        // dd($company_id);
+        return view('edit', ['product' => $product,'companys'=>$companys,'company_id'=>$company_id,]);
         // return view('edit',compact('product'));
     }
 
@@ -124,20 +134,66 @@ class ProductController extends Controller
         \Log::info("search");
         $companys = Company::all();
 
-        // dd($companys);
+        // dd($request);
+
+        $company_id = $request->input('company_id');
         $word = $request->get('word');
+        $products = Product::query();
+        // dd($company_id);
         if ($word !== null) {
             $escape_word = addcslashes($word, '\\_%');
-            $products = Product::where('product_name', '%' . $escape_word . '%')->get();
-        } else {
-            $products = Product::all();
+            $products->where('product_name', 'LIKE', '%' . $escape_word . '%');
+            // $products = Product::where('product_name', 'LIKE', '%' . $escape_word . '%')->get();
+            // dd($products);
         }
+
+        if ($company_id !== null){
+            $products->where('company_id' , $company_id );
+            // $products = Product::where('company_id' , $company_id )->get();
+            // dd($company_id);
+        }
+        $products = $products->get();
         return view(
             'vending_all',
             [
-                'products' => $products
+                'products' => $products,
+                'companys' => $companys,
+                'campany_id' => $company_id,
             ]
         );
     }
 
+    // ソート機能 昇順・降順
+    public function list(Request $request)
+    {
+    $sort = $request->get('sort');
+    $companys = Company::all();
+    // dd($request);
+
+    switch($sort){
+    case 1:
+        $products = Product::orderBy('id')->get();
+        break;
+    case 2:
+        $products = Product::orderBy('product_name')->get();
+        break;
+    case 3:
+        $products = Product::orderBy('price')->get();
+        break;
+    case 4:
+        $products = Product::orderBy('stack')->get();
+        break;
+    case 5:
+        $products = Company::orderBy('company_name')->get();
+        break;
+    }
+
+    return view(
+        'vending_all',
+        [
+            'products' => $products,
+            'companys' => $companys,
+        ]
+    );
+    }
 }
