@@ -27,6 +27,7 @@
                                 <img src=" {{asset('/image/'.$product->img_path)}}">
                             </div>
                         </div>
+
                         </div>
                 <br>
                 <div class="text-right">
@@ -34,4 +35,9 @@
                     <a class="btn btn-primary" href="#" onClick="history.back()">戻る</a>
                 </form>
                 </div>
+                <br>
+
+                {{--<a href="{{ route('edit',['id' => $product->id]) }}" class="btn btn-primary">編集</a>
+                <a class="btn btn-primary" href="#" onClick="history.back()">戻る</a>--}}
+                </form>
                 </div>

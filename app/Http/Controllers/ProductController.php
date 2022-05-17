@@ -164,6 +164,7 @@ class ProductController extends Controller
     }
 
     // ソート機能 昇順・降順
+
     public function list(Request $request)
     {
     $sort = $request->get('sort');

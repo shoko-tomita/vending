@@ -49,5 +49,4 @@
             Route::post('/list', [ProductController::class, 'list'])->name('list');
 
         });
-
         require __DIR__ . '/auth.php';
