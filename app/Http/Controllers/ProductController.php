@@ -97,7 +97,6 @@ class ProductController extends Controller
         \Log::info("showEdit");
         $product = Product::findOrFail($id);
         $companys = Company::all();
-        // $company_id = Product::findOrFail($id);
         $company_id =  $product->company_id;
         // dd($company_id);
         return view('edit', ['product' => $product,'companys'=>$companys,'company_id'=>$company_id,]);
@@ -135,7 +134,6 @@ class ProductController extends Controller
         $companys = Company::all();
 
         // dd($request);
-
         $company_id = $request->input('company_id');
         $word = $request->get('word');
         $products = Product::query();
@@ -164,28 +162,47 @@ class ProductController extends Controller
     }
 
     // ソート機能 昇順・降順
-
     public function list(Request $request)
     {
     $sort = $request->get('sort');
     $companys = Company::all();
     // dd($request);
 
-    switch($sort){
-    case 1:
-        $products = Product::orderBy('id')->get();
+    $up = $request->get('radioInline') ;
+    $down = $request->get('radioInline');
+    \Log::info("radio",[$up,$down]);
+
+    switch($sort)
+    {
+    case 1:if ($request->get('radioInline') == 'up'){
+        $products = Product::orderBy('id','asc')->get();
+        }else{
+            $products = Product::orderBy('id','desc')->get();
+        }
         break;
-    case 2:
-        $products = Product::orderBy('product_name')->get();
+    case 2:if ($request->get('radioInline') == 'up'){
+        $products = Product::orderBy('product_name','asc')->get();
+        }else{
+        $products = Product::orderBy('product_name','desc')->get();
+        }
         break;
-    case 3:
-        $products = Product::orderBy('price')->get();
+    case 3:if ($request->get('radioInline') == 'up'){
+        $products = Product::orderBy('product_name','asc')->get();
+        }else{
+        $products = Product::orderBy('price','desc')->get();
+        }
         break;
-    case 4:
-        $products = Product::orderBy('stack')->get();
+    case 4:if ($request->get('radioInline') == 'up'){
+        $products = Product::orderBy('stack','asc')->get();
+        }else{
+        $products = Product::orderBy('stack','desc')->get();
+        }
         break;
-    case 5:
-        $products = Company::orderBy('company_name')->get();
+    case 5:if ($request->get('radioInline') == 'up'){
+        $products = Company::orderBy('company_name','asc')->get();
+        }else{
+        $products = Company::orderBy('company_name','desc')->get();
+        }
         break;
     }
 

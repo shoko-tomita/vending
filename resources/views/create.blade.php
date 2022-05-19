@@ -31,7 +31,7 @@
                             <input type="number" class="form-control" name="stack" id="stack" value="" />
                             <label for="title">コメント</label>
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px" name="comment"></textarea>
+                                <textarea class="form-control" id="floatingTextarea" style="height: 100px" name="comment"></textarea>
                             </div>
 
                             <label for="title">商品画像</label>

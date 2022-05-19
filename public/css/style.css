@@ -23,3 +23,33 @@ img{
     width: 197px;
     height: 256px;
 }
+
+.bd-example{
+    display: inline-flex;
+}
+
+.form-check-label{
+    margin: 7px;
+}
+
+a {
+	display: inline-block;
+	position: relative;
+	text-decoration: none;
+}
+a::after {
+	position: absolute;
+	content: '';
+	bottom: 0;
+	left: 0;
+	width: 0;
+	height: 1px;
+	background: #2196F3;
+	transition: all 0.3s ease 0s;
+}
+a:hover {
+	cursor: pointer;
+}
+a:hover::after {
+	width: 100%;
+}

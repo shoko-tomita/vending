@@ -1,36 +1,49 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+<link rel="stylesheet" href="{{ asset("/css/style.css") }}">
+    @section('content')
+    <div class="container">
+        <div class="row">
+        <div class="col col-md-offset-3 col-md-6">
+            <nav class="panel panel-default">
+            <div class="panel-heading">パスワード変更</div>
+            <div class="panel-body">
+                @if($errors->any())
+                <div class="alert alert-danger">
+                    @foreach($errors->all() as $message)
+                    <p>{{ $message }}</p>
+                    @endforeach
+                </div>
+                @endif
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                @if (session('login_error'))
+                    <div class="alert alert-danger">
+                        {{ session('login_error')}}
+                    </div>
+                    @endif
+                <form action="{{ route('register') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="text" class="form-control" id="email" name="email" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="password">パスワード</label>
+                    <input type="password" class="form-control" id="password" name="password" />
+                </div>
+                <div class="form-group">
+                    <label for="password">パスワード確認</label>
+                    <input type="password" class="form-control" id="password-confirm" name="password_confirmation" />
+                </div>
+
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">送信</button>
+                </div>
+                </form>
+            </div>
+            </nav>
+            <div class="text-center">
+            <a href="{{ route('login.show') }}">ログイン</a>
+            </div>
         </div>
-
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Email Password Reset Link') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        </div>
+    </div>
