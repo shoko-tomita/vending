@@ -34,6 +34,8 @@
                                 <textarea class="form-control" id="floatingTextarea" style="height: 100px" name="comment"></textarea>
                             </div>
 
+                            {{--<form method="POST" action="{{route('upload.store')}}" enctype="multipart/form-data">--}}
+                                @csrf
                             <label for="title">商品画像</label>
                             <input type="file" class="form-control" name="img_path" id="file" value="" />
                         </div>
@@ -41,6 +43,7 @@
                             <button type="submit" class="btn btn-primary">登録</button>
                             <button type="button" class="btn btn-primary" onClick="history.back()">戻る</button>
                         </div>
+                        </form>
             </nav>
 
         </div>

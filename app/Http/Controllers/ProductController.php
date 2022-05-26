@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Requests\UpdateFormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -43,25 +44,18 @@ class ProductController extends Controller
         $user->price = $request->input('price');
         $user->stack = $request->input('stack');
         $user->comment = $request->input('comment');
-        $user->img_path = $request->input('img_path');
-        // if(request('img_path')){
-        //     $original = request()->file('img_path')->getClientOriginalName();
-        //     $name = date('Ymd_His').'_'.$original;
-        //     $file = request()->file('img_path')->move('storage/images',$name);
-        //     $post->img_path=$name;
-        // }
-
-        // $user = Product::find($request->id);
-        // $user->product_name = $request->product_name;
-        // $user->price = $request->price;
-        // $user->stack = $request->stack;
-        // $user->comment = $request->comment;
-        // $user->img_path = $request->img_path;
-
+        $file_name = $request->file('img_path')->getClientOriginalName();
+        $user->img_path = $file_name;
+        \Log::info("upload file $file_name");
+        $request->file('img_path')->storeAs('public/images',$file_name);
+        // dd($request->input('img_path'));
+        // $image->img_path = $request->file('img_path');
+        // $path = \Storage::put('/public',$image);
         // 保存
         $user->save();
         \Log::info("newCreate");
         // リダイレクト
+        // return Storage::disk('local')->download($user);
         return redirect('/');
     }
 
@@ -70,6 +64,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
         $companys = Company::all();
+        $products = Product::orderBy('created_at','asc')->paginate(3);
 
         foreach ($products as $product) {
             $company_id = $product->company_id;
@@ -88,6 +83,7 @@ class ProductController extends Controller
      */
     public function showDisp($id)
     {
+        \Log::info("showDisp");
         return view('disp', ['product' => Product::findOrFail($id)]);
     }
 
@@ -112,7 +108,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->stack = $request->stack;
         $product->comment = $request->comment;
-        // $product->img_path = $request->img_path;
+        $product->img_path = $request->img_path;
         $product->save();
 
         return redirect()->route('disp', ['id' => $id,]);

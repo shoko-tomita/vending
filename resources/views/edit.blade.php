@@ -35,7 +35,7 @@
                             </div>
 
                             <label for="title">商品画像</label>
-                            <input type="file" class="form-control" name="img" id="text" value="{{ $product->imgpath }}" />
+                            <input type="file" class="form-control" name="img_path" id="text" value="{{ $product->img_path }}" />
                         </div>
                         <div class="text-right">
                             <button type="submit" class="btn btn-primary">更新</button>

@@ -23,17 +23,4 @@ class Product extends Model
     }
 
 
-    // public function getCompanyNameById()
-    // {
-    // return DB::table('products')
-    //         ->join('companies', 'products.company_id', '=', 'companies.id')
-    //         ->get();
-    // }
-
-// return DB::table('posts')
-//             ->join('users', function($join) {
-//               $join->on('posts.user_id', 'users.id');
-//             })
-//             ->get();
-
 }

@@ -19,15 +19,15 @@
                         {{ session('login_error')}}
                     </div>
                     @endif
-                <form action="{{ route('register') }}" method="POST">
+                    <form method="POST" action="{{ route('password_reset.email.send') }}">
                 @csrf
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
-                    <input type="text" class="form-control" id="email" name="email" value="" />
+                    <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" />
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input type="password" class="form-control" id="password" name="password" />
+                    <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}"/>
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード確認</label>

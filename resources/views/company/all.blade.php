@@ -6,9 +6,8 @@
     <header id="header">
         <ul class="my-list">
             <li>こんにちは{{ Auth::user()->name }}さん</li>
-            <label for=""><a href="{{ route('all') }}" class="company">企業一覧はこちら</a></label>
         </ul>
-        <h3>商品一覧情報</h3>
+        <h3>企業一覧情報</h3>
     </header>
 
     <div class="text-center">
@@ -29,10 +28,9 @@
             <select class="form-select" aria-label="Default select" name="sort">
                 <option value="">選択してください</option>
                 <option value="1">ID</option>
-                <option value="2">名前</option>
-                <option value="3">価格</option>
-                <option value="4">在庫</option>
-                <option value="5">企業名</option>
+                <option value="2">会社名</option>
+                <option value="3">住所</option>
+                <option value="4">代表者名</option>
             </select>
             <div class="bd-example">
                 <div class="form-check form-check-inline">
@@ -50,7 +48,7 @@
 
         <br>
         <div class="text-center">
-            <a href="{{ route('create') }}" class="btn btn-primary">商品情報登録</a>
+            <a href="{{ route('create2') }}" class="btn btn-primary">企業登録</a>
         </div>
         <br>
         <div class="container">
@@ -66,24 +64,20 @@
         <main>
             <div class="container">
                 <div class="row">
-                    @foreach ($products as $product)
+                    @foreach ($companys as $company)
                     <div class="col col-md-offset-3 col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <label for="">ID:{{ $product->id}}</label>
+                                <label for="">ID:{{ $company->id}}</label>
                             </div>
                             <div class="panel-body">
-                                <div>商品名:{{ $product->product_name }}</div>
-                                <div>価格:{{ $product->price}}</div>
-                                <div>在庫:{{ $product->stack}}</div>
-                                <div class="img">
-                                    <div>商品画像:{{ $product->company}}</div>
-                                    {{--<img src="{{ asset('storage/'.$product->img_path)}}">--}}
-                                    <img src=" {{asset('storage/images/'.$product->img_path)}}">
+                                <div>会社名:{{ $company->company_name }}
                                 </div>
+                                <div>住所:{{ $company->street_address}}</div>
+                                <div>代表者名:{{ $company->representative_name}}</div>
                                 <br>
-                                <a href="{{ route('disp',['id' => $product->id]) }}" class="btn btn-primary">商品情報詳細</a>
-                                <form action="{{route ('delete',$product->id)}}" method="POST">
+                                <a href="{{ route('edit2',['id' => $company->id]) }}" class="btn btn-primary">編集</a>
+                                <form action="" method="POST">
                                     @csrf
                                     <br>
                                     <button type="submit" class="btn btn-primary">削除</button>
@@ -94,19 +88,18 @@
                     @endforeach
                 </div>
             </div>
-
             <div class="row">
-                <div class="col-md-4 offset-md-4">
-                    {{ $products->links()}}
-                </div>
+                <div class="col-md-4 offset-md-4">{{ $companys->links()}}</div>
             </div>
-
         </main>
         <br>
         <footer>
-            <a href="#" id="logout">ログアウト</a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
+            <div class="text-center">
+                <a href="{{ route('vending_all') }}">戻る</a>・
+                <a href="#" id="logout">ログアウト</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+            </div>
             </form>
         </footer>
         <script>
@@ -116,5 +109,3 @@
             });
         </script>
 </body>
-
-</html>
