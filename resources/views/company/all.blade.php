@@ -77,7 +77,7 @@
                                 <div>代表者名:{{ $company->representative_name}}</div>
                                 <br>
                                 <a href="{{ route('edit2',['id' => $company->id]) }}" class="btn btn-primary">編集</a>
-                                <form action="" method="POST">
+                                <form action="{{route ('delete2',$company->id)}}" method="POST">
                                     @csrf
                                     <br>
                                     <button type="submit" class="btn btn-primary">削除</button>

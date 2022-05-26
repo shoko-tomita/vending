@@ -77,12 +77,14 @@
                 // 商品登録
                 Route::get('/comapny_create',  [CompanyController::class, 'showCreate'])->name('create2');
                 Route::post('/company_create', [CompanyController::class, 'newCreate'])->name('newcreate2');
-                // // 商品詳細
+                // 商品詳細
                 // Route::get('/company_disp/{id}',  [CompanyController::class, 'showDisp'])->name('disp');
                 // 商品情報編集のルーティング
                 Route::get('/company_edit/{id}', [CompanyController::class, 'showEdit'])->name('edit2');
-                // // 更新処理
+                // 更新処理
                 Route::post('/company_edit/up/{id}', [CompanyController::class, 'up'])->name('up');
+                // 削除機能
+                Route::post('/all/{id}', [CompanyController::class, 'destroy2'])->name('delete2');
 
         });
         require __DIR__ . '/auth.php';

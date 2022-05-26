@@ -115,11 +115,10 @@ class ProductController extends Controller
     }
 
     // 削除対象レコードを検索
-    public function destroy($id)
+    public function destroy(int $id)
     {
         \Log::info("destroy");
-        $item = Product::findOrFail($id);
-        $item->delete();
+        Product::find($id)->delete();
         return redirect('/');
     }
 

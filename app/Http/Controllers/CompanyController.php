@@ -61,6 +61,13 @@ class CompanyController extends Controller
         return redirect('all');
     }
 
+        // 論理削除
+    public function destroy2(int $id)
+    {
+        Company::find($id)->delete();
+        return redirect('all');
+    }
+
     // /**
     //  * 指定ユーザーのプロフィール表示
     //  *
@@ -71,7 +78,6 @@ class CompanyController extends Controller
     // {
     //     return view('company/company_disp', ['company' => Company::findOrFail($id)]);
     // }
-
         // 編集機能
         public function showEdit(int $id)
         {
