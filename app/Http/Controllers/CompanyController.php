@@ -103,4 +103,91 @@ class CompanyController extends Controller
             return redirect('all');
         }
 
+    //      // 検索機能
+    // public function search(Request $request)
+    // {
+    //     \Log::info("search");
+    //     $companys = Company::all();
+
+    //     // dd($request);
+    //     $company_id = $request->input('company_id');
+    //     $word = $request->get('word');
+    //     $products = Product::query();
+    //     // dd($company_id);
+    //     if ($word !== null) {
+    //         $escape_word = addcslashes($word, '\\_%');
+    //         $products->where('product_name', 'LIKE', '%' . $escape_word . '%');
+    //         // $products = Product::where('product_name', 'LIKE', '%' . $escape_word . '%')->get();
+    //         // dd($products);
+    //     }
+
+    //     if ($company_id !== null){
+    //         $products->where('company_id' , $company_id );
+    //         // $products = Product::where('company_id' , $company_id )->get();
+    //         // dd($company_id);
+    //     }
+    //     $products = $products->paginate();
+    //     return view(
+    //         'vending_all',
+    //         [
+    //             'products' => $products,
+    //             'companys' => $companys,
+    //             'campany_id' => $company_id,
+    //         ]
+    //     );
+    // }
+
+    // // ソート機能 昇順・降順
+    // public function list2(Request $request)
+    // {
+    // $sort = $request->get('sort');
+    // $companys = Company::all();
+    // // dd($request);
+
+    // $up = $request->get('radioInline') ;
+    // $down = $request->get('radioInline');
+    // \Log::info("radio",[$up,$down]);
+
+    // switch($sort)
+    // {
+    // case 1:if ($request->get('radioInline') == 'up'){
+    //     $products = Product::orderBy('id','asc')->paginate();
+    //     }else{
+    //         $products = Product::orderBy('id','desc')->paginate();
+    //     }
+    //     break;
+    // case 2:if ($request->get('radioInline') == 'up'){
+    //     $products = Product::orderBy('product_name','asc')->paginate();
+    //     }else{
+    //     $products = Product::orderBy('product_name','desc')->paginate();
+    //     }
+    //     break;
+    // case 3:if ($request->get('radioInline') == 'up'){
+    //     $products = Product::orderBy('product_name','asc')->paginate();
+    //     }else{
+    //     $products = Product::orderBy('price','desc')->paginate();
+    //     }
+    //     break;
+    // case 4:if ($request->get('radioInline') == 'up'){
+    //     $products = Product::orderBy('stack','asc')->paginate();
+    //     }else{
+    //     $products = Product::orderBy('stack','desc')->paginate();
+    //     }
+    //     break;
+    // case 5:if ($request->get('radioInline') == 'up'){
+    //     $products = Company::orderBy('company_name','asc')->paginate();
+    //     }else{
+    //     $products = Company::orderBy('company_name','desc')->paginate();
+    //     }
+    //     break;
+    // }
+
+    // return view(
+    //     'vending_all',
+    //     [
+    //         'products' => $products,
+    //         'companys' => $companys,
+    //     ]
+    // );
+    // }
 }

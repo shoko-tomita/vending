@@ -70,6 +70,8 @@
             // 検索機能
             Route::post('/list', [ProductController::class, 'list'])->name('list');
 
+            Route::get('/downloadcsv/{mode}', [ProductController::class, 'downloadcsv'])->name('downloadcsv');
+
 
         // 企業ページ //
                 // 一覧画面
@@ -85,6 +87,10 @@
                 Route::post('/company_edit/up/{id}', [CompanyController::class, 'up'])->name('up');
                 // 削除機能
                 Route::post('/all/{id}', [CompanyController::class, 'destroy2'])->name('delete2');
+                // // 検索機能
+                // Route::get('/search', [CompanyController::class, 'search'])->name('search2');
+
+                // Route::post('/list', [CompanyController::class, 'list'])->name('list2');
 
         });
         require __DIR__ . '/auth.php';

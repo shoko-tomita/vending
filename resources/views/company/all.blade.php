@@ -48,6 +48,7 @@
 
         <br>
         <div class="text-center">
+            <a href="#" class="btn btn-primary">CSVダウンロード</a>
             <a href="{{ route('create2') }}" class="btn btn-primary">企業登録</a>
         </div>
         <br>
@@ -88,9 +89,8 @@
                     @endforeach
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4 offset-md-4">{{ $companys->links()}}</div>
-            </div>
+                {{ $companys->links()}}
+
         </main>
         <br>
         <footer>

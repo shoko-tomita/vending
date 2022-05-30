@@ -47,9 +47,9 @@
                 <input type="submit" class="btn btn-primary" value="並び替え">
             </div>
         </form>
-
         <br>
         <div class="text-center">
+            <a href="{{ route('downloadcsv',['mode' => $downloadmode[0]]) }}" class="btn btn-primary">CSVダウンロード</a>
             <a href="{{ route('create') }}" class="btn btn-primary">商品情報登録</a>
         </div>
         <br>
@@ -95,11 +95,13 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-4 offset-md-4">
-                    {{ $products->links()}}
-                </div>
+            <div class="container">
+                @foreach ($products as $product)
+                {{ $product->name }}
+                @endforeach
             </div>
+
+            {{ $products->links()}}
 
         </main>
         <br>

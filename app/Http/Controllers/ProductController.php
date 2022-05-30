@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Http\Requests\UpdateFormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProductController extends Controller
 {
@@ -72,7 +73,14 @@ class ProductController extends Controller
             $product['company_name'] = $company_name;
         }
         //dd($products);
-        return view('vending_all', ['products' => $products,'companys' => $companys,]);
+        return view(
+            'vending_all',
+            [
+                'products' => $products,
+                'companys' => $companys,
+                'downloadmode' => ['all'],
+            ]
+        );
     }
 
     /**
@@ -145,13 +153,14 @@ class ProductController extends Controller
             // $products = Product::where('company_id' , $company_id )->get();
             // dd($company_id);
         }
-        $products = $products->get();
+        $products = $products->paginate();
         return view(
             'vending_all',
             [
                 'products' => $products,
                 'companys' => $companys,
                 'campany_id' => $company_id,
+                'downloadmode' => ['all'], // ■変更部分
             ]
         );
     }
@@ -170,33 +179,33 @@ class ProductController extends Controller
     switch($sort)
     {
     case 1:if ($request->get('radioInline') == 'up'){
-        $products = Product::orderBy('id','asc')->get();
+        $products = Product::orderBy('id','asc')->paginate();
         }else{
-            $products = Product::orderBy('id','desc')->get();
+            $products = Product::orderBy('id','desc')->paginate();
         }
         break;
     case 2:if ($request->get('radioInline') == 'up'){
-        $products = Product::orderBy('product_name','asc')->get();
+        $products = Product::orderBy('product_name','asc')->paginate();
         }else{
-        $products = Product::orderBy('product_name','desc')->get();
+        $products = Product::orderBy('product_name','desc')->paginate();
         }
         break;
     case 3:if ($request->get('radioInline') == 'up'){
-        $products = Product::orderBy('product_name','asc')->get();
+        $products = Product::orderBy('product_name','asc')->paginate();
         }else{
-        $products = Product::orderBy('price','desc')->get();
+        $products = Product::orderBy('price','desc')->paginate();
         }
         break;
     case 4:if ($request->get('radioInline') == 'up'){
-        $products = Product::orderBy('stack','asc')->get();
+        $products = Product::orderBy('stack','asc')->paginate();
         }else{
-        $products = Product::orderBy('stack','desc')->get();
+        $products = Product::orderBy('stack','desc')->paginate();
         }
         break;
     case 5:if ($request->get('radioInline') == 'up'){
-        $products = Company::orderBy('company_name','asc')->get();
+        $products = Company::orderBy('company_name','asc')->paginate();
         }else{
-        $products = Company::orderBy('company_name','desc')->get();
+        $products = Company::orderBy('company_name','desc')->paginate();
         }
         break;
     }
@@ -206,7 +215,42 @@ class ProductController extends Controller
         [
             'products' => $products,
             'companys' => $companys,
+            'downloadmode' => ['all'],// ■変更部分
         ]
     );
+    }
+
+    public function downloadcsv($mode, Request $request)
+    {
+        \Log::info("downloadcsv",[$mode]);
+        // ==========データ収集
+        $products = Product::all();// ■変更部分
+
+
+
+        // ========== csv生成
+        $response = new StreamedResponse(function () use ($products) {
+            //                                                ↑収集済みデータ
+            $stream = fopen('php://output', 'w');
+            foreach ($products as $product){
+                 //     ↑収集済みデータ
+                fputcsv($stream,  [
+                    // ↓csvのカラム
+                    $product->id,
+                    $product->product_name,
+                    $product->price,
+                    $product->stack,
+                    $product->comment,
+                    // ↑csvのカラム
+                ]);
+            }
+            fclose($stream);
+        },200,
+        [
+            'Content-Type'=>'text/csv',
+            'Content-Disposition'=>'attachment; filename=products.csv',
+            //                                              ↑ファイル名
+        ]);
+        return $response;
     }
 }
