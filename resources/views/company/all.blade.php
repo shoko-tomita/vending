@@ -6,6 +6,7 @@
     <header id="header">
         <ul class="my-list">
             <li>こんにちは{{ Auth::user()->name }}さん</li>
+            <label for=""><a href="{{ route('vending_all') }}" class="company">商品一覧ページに戻る</a></label>
         </ul>
         <h3>企業一覧情報</h3>
     </header>

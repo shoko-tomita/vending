@@ -69,8 +69,8 @@
             Route::get('/search', [ProductController::class, 'search'])->name('search');
             // 検索機能
             Route::post('/list', [ProductController::class, 'list'])->name('list');
-
-            Route::get('/downloadcsv/{mode}', [ProductController::class, 'downloadcsv'])->name('downloadcsv');
+            // CSV出力
+            Route::get('/downloadcsv/{mode}/{mode_etc}', [ProductController::class, 'downloadcsv'])->name('downloadcsv');
 
 
         // 企業ページ //
