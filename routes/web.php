@@ -67,7 +67,7 @@
             Route::post('/edit/update/{id}', [ProductController::class, 'update'])->name('update');
             // 検索機能
             Route::get('/search', [ProductController::class, 'search'])->name('search');
-            // 検索機能
+            // 並び替え
             Route::post('/list', [ProductController::class, 'list'])->name('list');
             // CSV出力
             Route::get('/downloadcsv/{mode}/{mode_etc}', [ProductController::class, 'downloadcsv'])->name('downloadcsv');
@@ -79,18 +79,18 @@
                 // 商品登録
                 Route::get('/comapny_create',  [CompanyController::class, 'showCreate'])->name('create2');
                 Route::post('/company_create', [CompanyController::class, 'newCreate'])->name('newcreate2');
-                // 商品詳細
-                // Route::get('/company_disp/{id}',  [CompanyController::class, 'showDisp'])->name('disp');
                 // 商品情報編集のルーティング
                 Route::get('/company_edit/{id}', [CompanyController::class, 'showEdit'])->name('edit2');
                 // 更新処理
                 Route::post('/company_edit/up/{id}', [CompanyController::class, 'up'])->name('up');
                 // 削除機能
                 Route::post('/all/{id}', [CompanyController::class, 'destroy2'])->name('delete2');
-                // // 検索機能
-                // Route::get('/search', [CompanyController::class, 'search'])->name('search2');
-
-                // Route::post('/list', [CompanyController::class, 'list'])->name('list2');
+                // 検索機能
+                Route::get('/search2', [CompanyController::class, 'search2'])->name('search2');
+                // 並び替え
+                Route::post('/list2', [CompanyController::class, 'list2'])->name('list2');
+                // CSV出力
+                Route::get('/download/{mode}/{mode_etc}', [CompanyController::class, 'download'])->name('download');
 
         });
         require __DIR__ . '/auth.php';

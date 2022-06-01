@@ -78,8 +78,8 @@ class ProductController extends Controller
             [
                 'products' => $products,
                 'companys' => $companys,
-                'downloadmode' => 'all', // ■変更部分
-                'downloadmode_etc' => ['all','all'], // ■変更部分
+                'downloadmode' => 'all',
+                'downloadmode_etc' => ['all','all'],
             ]
         );
     }
@@ -161,8 +161,8 @@ class ProductController extends Controller
                 'products' => $products,
                 'companys' => $companys,
                 'campany_id' => $company_id,
-                'downloadmode' => 'search', // ■変更部分
-                'downloadmode_etc' => [$word,$company_id], // ■変更部分
+                'downloadmode' => 'search',
+                'downloadmode_etc' => [$word,$company_id],
             ]
         );
     }
@@ -217,8 +217,8 @@ class ProductController extends Controller
         [
             'products' => $products,
             'companys' => $companys,
-            'downloadmode' => 'sort',// ■変更部分
-            'downloadmode_etc' => [$sort,$request->get('radioInline')]// ■変更部分
+            'downloadmode' => 'sort',
+            'downloadmode_etc' => [$sort,$request->get('radioInline')]
         ]
     );
     }
@@ -229,7 +229,7 @@ class ProductController extends Controller
         // ==========データ収集
         // dd($mode_etc);
 
-         $products = Product::all();// ■変更部分
+        $products = Product::all();// ■変更部分
         if($mode === 'sort'){
 
             $sortlist = explode("_", $mode_etc);
@@ -279,26 +279,24 @@ class ProductController extends Controller
             $company_id = $mode_etc_list[1];
             //dd($company_id);
             if ($word !== "") {
-                
+
                 $escape_word = addcslashes($word, '\\_%');
                 $products = $products->where('product_name', 'LIKE', '%' . $escape_word . '%');
                 // $products = Product::where('product_name', 'LIKE', '%' . $escape_word . '%')->get();
                  //dd($products);
             }
-    
+
             if ($company_id !== ""){
                 $products = $products->where('company_id' , $company_id );
                 // $products = Product::where('company_id' , $company_id )->get();
                 // dd($company_id);
             }
             $products = $products->paginate();
-            
+
         }else{
             // nothing to do..
         }
 
-      
-     
         // ========== csv生成
         $response = new StreamedResponse(function () use ($products) {
             //                                                ↑収集済みデータ

@@ -12,7 +12,7 @@
     </header>
 
     <div class="text-center">
-        <form action="{{route('search')}}">
+        <form action="{{route('search2')}}">
             @csrf
             <select class="form-select" aria-label="Default select" name="company_id">
                 <option value="">選択してください</option>
@@ -24,9 +24,9 @@
             <input type="submit" class="btn btn-primary" value="検索">
         </form>
 
-        <form action="{{route('list')}}" method="POST">
+        <form action="{{route('list2')}}" method="POST">
             @csrf
-            <select class="form-select" aria-label="Default select" name="sort">
+            <select class="form-select" aria-label="Default select" name="sort2">
                 <option value="">選択してください</option>
                 <option value="1">ID</option>
                 <option value="2">会社名</option>
@@ -49,7 +49,10 @@
 
         <br>
         <div class="text-center">
-            <a href="#" class="btn btn-primary">CSVダウンロード</a>
+            <a href="{{ route('download',
+                ['mode'=> $downloadmode,
+                'mode_etc' => $downloadmode_etc[0] .  '_' . $downloadmode_etc[1]]
+                ) }}" class="btn btn-primary">CSVダウンロード</a>
             <a href="{{ route('create2') }}" class="btn btn-primary">企業登録</a>
         </div>
         <br>
@@ -90,7 +93,13 @@
                     @endforeach
                 </div>
             </div>
-                {{ $companys->links()}}
+
+                <div class="container">
+                    @foreach ($companys as $company)
+                    {{ $company->name }}
+                    @endforeach
+                </div>
+                    {{ $companys->links()}}
 
         </main>
         <br>

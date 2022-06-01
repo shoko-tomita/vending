@@ -50,9 +50,9 @@
         <br>
         <div class="text-center">
             <a href="{{ route('downloadcsv',
-                 ['mode'=> $downloadmode,
-                 'mode_etc' => $downloadmode_etc[0] .  '_' . $downloadmode_etc[1]]
-                 ) }}" class="btn btn-primary">CSVダウンロード</a>
+                ['mode'=> $downloadmode,
+                'mode_etc' => $downloadmode_etc[0] .  '_' . $downloadmode_etc[1]]
+                ) }}" class="btn btn-primary">CSVダウンロード</a>
             <a href="{{ route('create') }}" class="btn btn-primary">商品情報登録</a>
         </div>
         <br>

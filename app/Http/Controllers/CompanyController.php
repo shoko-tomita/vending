@@ -9,6 +9,7 @@ use App\Http\Requests\CompanyFormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\Paginator;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CompanyController extends Controller
 {
@@ -22,7 +23,14 @@ class CompanyController extends Controller
             // $company['company_name'] = $company_name;
         }
         //dd($companys);
-        return view('company/all', ['companys' => $companys,]);
+        return view(
+            'company/all',
+            [
+                'companys' => $companys,
+                'downloadmode' => 'all',
+                'downloadmode_etc' => ['all','all'],
+            ]
+        );
 
         // return view('company/all');
     }
@@ -103,91 +111,187 @@ class CompanyController extends Controller
             return redirect('all');
         }
 
-    //      // 検索機能
-    // public function search(Request $request)
-    // {
-    //     \Log::info("search");
-    //     $companys = Company::all();
+         // 検索機能
+    public function search2(Request $request)
+    {
+        \Log::info("search2");
+        $companys = Company::all();
 
-    //     // dd($request);
-    //     $company_id = $request->input('company_id');
-    //     $word = $request->get('word');
-    //     $products = Product::query();
-    //     // dd($company_id);
-    //     if ($word !== null) {
-    //         $escape_word = addcslashes($word, '\\_%');
-    //         $products->where('product_name', 'LIKE', '%' . $escape_word . '%');
-    //         // $products = Product::where('product_name', 'LIKE', '%' . $escape_word . '%')->get();
-    //         // dd($products);
-    //     }
+        // dd($request);
+        $company_id = $request->input('company_id');
+        $word = $request->get('word');
+        $companys = Company::query();
+        // dd($company_id);
+        if ($word !== null) {
+            $escape_word = addcslashes($word, '\\_%');
+            $companys->where('company_name', 'LIKE', '%' . $escape_word . '%');
+            // $companys = Product::where('product_name', 'LIKE', '%' . $escape_word . '%')->get();
+            // dd($companys);
+        }
 
-    //     if ($company_id !== null){
-    //         $products->where('company_id' , $company_id );
-    //         // $products = Product::where('company_id' , $company_id )->get();
-    //         // dd($company_id);
-    //     }
-    //     $products = $products->paginate();
-    //     return view(
-    //         'vending_all',
-    //         [
-    //             'products' => $products,
-    //             'companys' => $companys,
-    //             'campany_id' => $company_id,
-    //         ]
-    //     );
-    // }
+        if ($company_id !== null){
+            $companys->where('id' , $company_id );
+            // $companys = Product::where('company_id' , $company_id )->get();
+            // dd($company_id);
+        }
+        $companys = $companys->paginate();
+        return view(
+            'company/all',
+            [
+                'companys' => $companys,
+                'company_id' => $company_id,
+                'downloadmode' => 'search2',
+                'downloadmode_etc' => [$word,$company_id],
+            ]
+        );
+    }
 
-    // // ソート機能 昇順・降順
-    // public function list2(Request $request)
-    // {
-    // $sort = $request->get('sort');
-    // $companys = Company::all();
-    // // dd($request);
+    // ソート機能 昇順・降順
+    public function list2(Request $request)
+    {
+    $sort = $request->get('sort2');
+    $companys = Company::all();
+    // dd($request);
 
-    // $up = $request->get('radioInline') ;
-    // $down = $request->get('radioInline');
-    // \Log::info("radio",[$up,$down]);
+    $up = $request->get('radioInline') ;
+    $down = $request->get('radioInline');
+    \Log::info("radio",[$up,$down]);
 
-    // switch($sort)
-    // {
-    // case 1:if ($request->get('radioInline') == 'up'){
-    //     $products = Product::orderBy('id','asc')->paginate();
-    //     }else{
-    //         $products = Product::orderBy('id','desc')->paginate();
-    //     }
-    //     break;
-    // case 2:if ($request->get('radioInline') == 'up'){
-    //     $products = Product::orderBy('product_name','asc')->paginate();
-    //     }else{
-    //     $products = Product::orderBy('product_name','desc')->paginate();
-    //     }
-    //     break;
-    // case 3:if ($request->get('radioInline') == 'up'){
-    //     $products = Product::orderBy('product_name','asc')->paginate();
-    //     }else{
-    //     $products = Product::orderBy('price','desc')->paginate();
-    //     }
-    //     break;
-    // case 4:if ($request->get('radioInline') == 'up'){
-    //     $products = Product::orderBy('stack','asc')->paginate();
-    //     }else{
-    //     $products = Product::orderBy('stack','desc')->paginate();
-    //     }
-    //     break;
-    // case 5:if ($request->get('radioInline') == 'up'){
-    //     $products = Company::orderBy('company_name','asc')->paginate();
-    //     }else{
-    //     $products = Company::orderBy('company_name','desc')->paginate();
-    //     }
-    //     break;
-    // }
+    switch($sort)
+    {
+    case 1:if ($request->get('radioInline') == 'up'){
+        $companys = Company::orderBy('id','asc')->paginate();
+        }else{
+            $companys = Company::orderBy('id','desc')->paginate();
+        }
+        break;
+    case 2:if ($request->get('radioInline') == 'up'){
+        $companys = Company::orderBy('company_name','asc')->paginate();
+        }else{
+        $companys = Company::orderBy('company_name','desc')->paginate();
+        }
+        break;
+    case 3:if ($request->get('radioInline') == 'up'){
+        $companys = Company::orderBy('street_address','asc')->paginate();
+        }else{
+        $companys = Company::orderBy('street_address','desc')->paginate();
+        }
+        break;
+    case 4:if ($request->get('radioInline') == 'up'){
+        $companys = Company::orderBy('representative_name','asc')->paginate();
+        }else{
+        $companys = Company::orderBy('representative_name','desc')->paginate();
+        }
+        break;
 
-    // return view(
-    //     'vending_all',
-    //     [
-    //         'products' => $products,
-    //         'companys' => $companys,
-    //     ]
-    // );
-    // }
+    }
+
+    return view(
+        'company/all',
+        [
+            'companys' => $companys,
+            // 'companys' => $companys,
+            'downloadmode' => 'sort',
+            'downloadmode_etc' => [$sort,$request->get('radioInline')]
+        ]
+    );
+    }
+
+    public function download($mode, $mode_etc,  Request $request)
+    {
+        \Log::info("download",[$mode]);
+        // ==========データ収集
+        // dd($mode_etc);
+
+        $companys = Company::all();// ■変更部分
+        if($mode === 'sort'){
+
+            $sortlist = explode("_", $mode_etc);
+            $sort = $sortlist[0];
+            $order = $sortlist[1];
+            switch($sort)
+            {
+            case 1:if ($order == 'up'){
+                $companys = Company::orderBy('id','asc')->paginate();
+                }else{
+                    $companys = Company::orderBy('id','desc')->paginate();
+                }
+                break;
+            case 2:if ($order == 'up'){
+                $companys = Company::orderBy('company_name','asc')->paginate();
+                }else{
+                $companys = Company::orderBy('company_name','desc')->paginate();
+                }
+                break;
+            case 3:if ($order == 'up'){
+                $companys = Company::orderBy('street_address','asc')->paginate();
+                }else{
+                $companys = Company::orderBy('street_address','desc')->paginate();
+                }
+                break;
+            case 4:if ($order == 'up'){
+                $companys = Company::orderBy('representative_name','asc')->paginate();
+                }else{
+                $companys = Company::orderBy('representative_name','desc')->paginate();
+
+                }
+                break;
+
+            }
+
+
+        }elseif ($mode === 'search2') {
+            // dd($mode_etc);
+            # code...
+            \Log::info("search2csv");
+
+            $companys = Company::query();
+            $mode_etc_list = explode("_", $mode_etc);
+            $word = $mode_etc_list[0];
+            $company_id = $mode_etc_list[1];
+            // dd($company_id);
+            if ($word !== "") {
+
+                $escape_word = addcslashes($word, '\\_%');
+                $companys = $companys->where('company_name', 'LIKE', '%' . $escape_word . '%');
+                // $companys = company::where('company_name', 'LIKE', '%' . $escape_word . '%')->get();
+                //  dd($companys);
+            }
+
+            if ($company_id !== ""){
+                $companys = $companys->where('id' , $company_id );
+                // $companys = company::where('company_id' , $company_id )->get();
+                // dd($company_id);
+            }
+            $companys = $companys->paginate();
+
+        }else{
+            // nothing to do..
+        }
+
+        // ========== csv生成
+        $response = new StreamedResponse(function () use ($companys) {
+            //                                                ↑収集済みデータ
+            $stream = fopen('php://output', 'w');
+            foreach ($companys as $company){
+                 //     ↑収集済みデータ
+                fputcsv($stream,  [
+                    // ↓csvのカラム
+                    $company->id,
+                    $company->company_name,
+                    $company->street_address,
+                    $company->representative_name,
+                    // ↑csvのカラム
+                ]);
+            }
+            fclose($stream);
+        },200,
+        [
+            'Content-Type'=>'text/csv',
+            'Content-Disposition'=>'attachment; filename=companys.csv',
+            //                                              ↑ファイル名
+        ]);
+        return $response;
+    }
+
 }
