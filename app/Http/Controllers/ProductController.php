@@ -155,6 +155,7 @@ class ProductController extends Controller
             // dd($company_id);
         }
         $products = $products->paginate();
+
         return view(
             'vending_all',
             [

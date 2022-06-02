@@ -14,18 +14,20 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class CompanyController extends Controller
 {
     public function show(){
-        $companys = Company::all();
+        $companyAll = Company::all();
         $companys = Company::orderBy('created_at','asc')->paginate(3);
 
         foreach ($companys as $company) {
+            // dd($companys);
             // $company_id = $company->company_id;
-            // $company_name = Company::find($company_id);
-            // $company['company_name'] = $company_name;
+            // $company_name = Company::find($company_id)->company_name;
+            // $companys['company_name'] = $company_name;
         }
-        //dd($companys);
         return view(
             'company/all',
             [
+                // 'company_id' => $company_id,
+                'companyAll' => $companyAll,
                 'companys' => $companys,
                 'downloadmode' => 'all',
                 'downloadmode_etc' => ['all','all'],
@@ -115,6 +117,7 @@ class CompanyController extends Controller
     public function search2(Request $request)
     {
         \Log::info("search2");
+        $companyAll = Company::all();
         $companys = Company::all();
 
         // dd($request);
@@ -135,9 +138,11 @@ class CompanyController extends Controller
             // dd($company_id);
         }
         $companys = $companys->paginate();
+
         return view(
             'company/all',
             [
+                'companyAll' => $companyAll,
                 'companys' => $companys,
                 'company_id' => $company_id,
                 'downloadmode' => 'search2',
@@ -190,7 +195,6 @@ class CompanyController extends Controller
         'company/all',
         [
             'companys' => $companys,
-            // 'companys' => $companys,
             'downloadmode' => 'sort',
             'downloadmode_etc' => [$sort,$request->get('radioInline')]
         ]

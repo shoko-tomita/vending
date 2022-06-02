@@ -12,11 +12,11 @@
     </header>
 
     <div class="text-center">
-        <form action="{{route('search2')}}">
+        <form action="{{route('search2')}}"  method="get">
             @csrf
             <select class="form-select" aria-label="Default select" name="company_id">
                 <option value="">選択してください</option>
-                @foreach($companys as $c)
+                @foreach($companyAll as $c)
                 <option value="{{$c->id}}">{{$c->company_name}}</option>
                 @endforeach
             </select>
@@ -94,11 +94,6 @@
                 </div>
             </div>
 
-                <div class="container">
-                    @foreach ($companys as $company)
-                    {{ $company->name }}
-                    @endforeach
-                </div>
                     {{ $companys->links()}}
 
         </main>
