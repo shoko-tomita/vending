@@ -156,6 +156,7 @@ class CompanyController extends Controller
     {
     $sort = $request->get('sort2');
     $companys = Company::all();
+    $companyAll = Company::all();
     // dd($request);
 
     $up = $request->get('radioInline') ;
@@ -194,6 +195,7 @@ class CompanyController extends Controller
     return view(
         'company/all',
         [
+            'companyAll' => $companyAll,
             'companys' => $companys,
             'downloadmode' => 'sort',
             'downloadmode_etc' => [$sort,$request->get('radioInline')]
