@@ -4,14 +4,15 @@
 <body>
 
     <header id="header">
+    <h3><span class="smoothText"><span class="smoothTextTrigger">自動販売機管理システム</span></span></h3>
         <ul class="my-list">
             <li>こんにちは{{ Auth::user()->name }}さん</li>
             <label for=""><a href="{{ route('all') }}" class="company">企業一覧はこちら</a></label>
         </ul>
-        <h3>商品一覧情報</h3>
     </header>
 
     <div class="text-center">
+        <h4>商品一覧情報</h4>
         <form action="{{route('search')}}">
             @csrf
             <select class="form-select" aria-label="Default select" name="company_id">
@@ -53,18 +54,19 @@
                 ['mode'=> $downloadmode,
                 'mode_etc' => $downloadmode_etc[0] .  '_' . $downloadmode_etc[1]]
                 ) }}" class="btn btn-primary">CSVダウンロード</a>
-            <a href="{{ route('create') }}" class="btn btn-primary">商品情報登録</a>
-        </div>
-        <br>
-        <div class="container">
-            <div class="mt-5">
-                @if (session('login_success'))
-                <div class="alert alert-success">
-                    {{ session('login_success')}}
-                </div>
-                @endif
+                <a href="{{ route('create') }}" class="btn btn-primary">商品情報登録</a>
             </div>
-        </div>
+            <br>
+            <div class="container">
+                <div class="mt-5">
+                    @if (session('login_success'))
+                    <div class="alert alert-success">
+                        {{ session('login_success')}}
+                    </div>
+                </div>
+                    @endif
+                </div>
+            </div>
 
         <main>
             <div class="container">
@@ -96,7 +98,6 @@
                     </div>
                     @endforeach
                 </div>
-            </div>
 
             <div class="container">
                 @foreach ($products as $product)
@@ -114,6 +115,8 @@
                 @csrf
             </form>
         </footer>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="js/main.js"></script>
         <script>
             document.getElementById('logout').addEventListener('click', function(event) {
                 event.preventDefault();

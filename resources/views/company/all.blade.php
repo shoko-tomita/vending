@@ -4,22 +4,24 @@
 <body>
 
     <header id="header">
+        <h3><span class="smoothText"><span class="smoothTextTrigger">自動販売機管理システム</span></span></h3>
         <ul class="my-list">
             <li>こんにちは{{ Auth::user()->name }}さん</li>
             <label for=""><a href="{{ route('vending_all') }}" class="company">商品一覧ページに戻る</a></label>
         </ul>
-        <h3>企業一覧情報</h3>
     </header>
-
+    
     <div class="text-center">
-        <form action="{{route('search2')}}"  method="get">
+        <h4>企業一覧情報</h4>
+        <form action="{{route('search2')}}" method="get">
             @csrf
-            <select class="form-select" aria-label="Default select" name="company_id">
+            {{--<select class="form-select" aria-label="Default select" name="company_id">
                 <option value="">選択してください</option>
                 @foreach($companyAll as $c)
                 <option value="{{$c->id}}">{{$c->company_name}}</option>
                 @endforeach
-            </select>
+            </select>--}}
+            <label for="">企業名検索 :</label>
             <input type="text" name="word">
             <input type="submit" class="btn btn-primary" value="検索">
         </form>
@@ -94,7 +96,7 @@
                 </div>
             </div>
 
-                    {{ $companys->links()}}
+            {{ $companys->links()}}
 
         </main>
         <br>
@@ -107,6 +109,8 @@
             </div>
             </form>
         </footer>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="js/main.js"></script>
         <script>
             document.getElementById('logout').addEventListener('click', function(event) {
                 event.preventDefault();

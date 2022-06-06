@@ -136,7 +136,6 @@ class ProductController extends Controller
     {
         \Log::info("search");
         $companys = Company::all();
-
         // dd($request);
         $company_id = $request->input('company_id');
         $word = $request->get('word');
@@ -173,6 +172,7 @@ class ProductController extends Controller
     {
     $sort = $request->get('sort');
     $companys = Company::all();
+    $products = Product::query();
     // dd($request);
 
     $up = $request->get('radioInline') ;

@@ -1,74 +1,104 @@
-@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/css/bootflat.min.css');
+	@import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+	@import url('https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/css/bootflat.min.css');
 
-.my-list {
-    list-style-type: none;
-    text-align: right;
-}
+	.my-list {
+		list-style-type: none;
+		text-align: right;
+	}
 
-body{
-    margin: 30px;
-}
+	body{
+		margin: 30px;
+	}
 
-h3{
-    text-align: center;
-}
+	h3{
+		text-align: center;
+	}
 
-.panel-heading{
-    text-align: left;
-}
+	h4{
+		text-align: center;
+	}
 
-img{
-	margin-right: 10px;
-	width: 250px;
-	height: 250px;
-	border: 1px solid #ddd;
-	object-fit: fill;
-}
+	.panel-heading{
+		text-align: left;
+	}
 
-.img{
-	margin-top: 30px;
-    text-align: center;
-}
+	img{
+		margin-right: 10px;
+		width: 250px;
+		height: 250px;
+		border: 1px solid #ddd;
+		object-fit: fill;
+	}
 
-img:last-child {
-	margin-right: 0;
-    }
+	.box {
+		display: flex;
+		flex-direction: column;
+	}
 
-.bd-example{
-    display: inline-flex;
-}
+	.img{
+		margin-top: 30px;
+		text-align: center;
+	}
 
-.form-check-label{
-    margin: 7px;
-}
+	img:last-child {
+		margin-right: 0;
+		}
 
-a {
-	display: inline-block;
-	position: relative;
-	text-decoration: none;
-}
-a::after {
-	position: absolute;
-	content: '';
-	bottom: 0;
-	left: 0;
-	width: 0;
-	height: 1px;
-	background: #2196F3;
-	transition: all 0.3s ease 0s;
-}
-a:hover {
-	cursor: pointer;
-}
-a:hover::after {
-	width: 100%;
-}
+	.bd-example{
+		display: inline-flex;
+	}
 
-.company {
-	color: powderblue;
-}
+	.form-check-label{
+		margin: 7px;
+	}
 
-.btn-primary {
-	margin: 10px 10px 0 2px;
-}
+	a {
+		display: inline-block;
+		position: relative;
+		text-decoration: none;
+	}
+	a::after {
+		position: absolute;
+		content: '';
+		bottom: 0;
+		left: 0;
+		width: 0;
+		height: 1px;
+		background: #2196F3;
+		transition: all 0.3s ease 0s;
+	}
+	a:hover {
+		cursor: pointer;
+	}
+	a:hover::after {
+		width: 100%;
+	}
+
+	.company {
+		color: powderblue;
+	}
+
+	.btn-primary {
+		margin: 10px 10px 0 2px;
+	}
+
+	span.smoothText {
+		overflow: hidden;
+		display: block;
+	}
+
+	/* .row {
+		display: flex;
+		justify-content: space-around;
+	} */
+
+	/* アニメーションで傾斜がついている文字列を水平に戻す*/
+	span.smoothTextTrigger{
+		transition: .8s ease-in-out;
+		transform: translate3d(0,100%,0) skewY(12deg);
+		transform-origin: left;
+		display: block;
+	}
+	span.smoothTextTrigger.smoothTextAppear{
+		transform: translate3d(0,0,0) skewY(0);
+	}

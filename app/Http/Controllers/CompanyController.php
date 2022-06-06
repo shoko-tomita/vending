@@ -75,6 +75,8 @@ class CompanyController extends Controller
     public function destroy2(int $id)
     {
         Company::find($id)->delete();
+        // TODO: ProductがCompanyを持ってるかの判断をする
+        Product::where('company_id', $id)->delete();
         return redirect('all');
     }
 
@@ -128,13 +130,11 @@ class CompanyController extends Controller
         if ($word !== null) {
             $escape_word = addcslashes($word, '\\_%');
             $companys->where('company_name', 'LIKE', '%' . $escape_word . '%');
-            // $companys = Product::where('product_name', 'LIKE', '%' . $escape_word . '%')->get();
             // dd($companys);
         }
 
         if ($company_id !== null){
             $companys->where('id' , $company_id );
-            // $companys = Product::where('company_id' , $company_id )->get();
             // dd($company_id);
         }
         $companys = $companys->paginate();
@@ -301,3 +301,4 @@ class CompanyController extends Controller
     }
 
 }
+
